@@ -52,6 +52,25 @@ function startServer(databaseUrl, port=PORT) {
   })
 }
 
+function stopServer() {
+  return mongoose.disconnect().then(() => {
+    return new Promise ((resolve, reject) => {
+      console.info('The server has disconnected from the DB.');
+
+      server.close(err => {
+        console.log(err);
+        return reject(err);
+      });
+
+      console.info('The server has shut down.');
+      resolve();
+    })
+    .then(err => {
+      console.error(err);
+    })
+  });
+}
+
 if (require.main === module) {
   startServer(DATABASE_URL);
 }
