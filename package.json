@@ -1,0 +1,24 @@
+{
+  "name": "just-jotit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ispoljari/just-jotit.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "jwt"
+  ],
+  "author": "Ivan Spoljaric",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ispoljari/just-jotit/issues"
+  },
+  "homepage": "https://github.com/ispoljari/just-jotit#readme"
+}
