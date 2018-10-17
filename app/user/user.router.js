@@ -11,7 +11,7 @@ const {User, userJoiSchema} = require('./user.model');
 // Mount the router middleware
 const router = express.Router();
 
-// Create a new user
+// Create A New User
 router.post('/', (req, res) => {
   const newUser = {
     name: req.body.name,
@@ -53,3 +53,19 @@ router.post('/', (req, res) => {
       });
   });
 });
+
+// Retrieve all users from the DB
+
+router.get('/', (req, res) => {
+  User.find()
+    .then(users => {
+      return res.status(HTTP_STATUS_CODES.OK).json(
+        users.map(user => user.serialize)
+      );
+    })
+    .catch(err => {
+      return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(err);
+    });
+});
+
+module.exports = {router};

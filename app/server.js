@@ -11,6 +11,8 @@ mongoose.Promise = global.Promise;
 const passport = require('passport');
 const {DATABASE_URL, HTTP_STATUS_CODES, PORT} = require('./config');
 
+const {router: userRouter, User, userJoiSchema} = require('./user');
+
 // Create an express app instance
 const app = express();
 
@@ -30,6 +32,9 @@ app.use(express.json());
 app.use(express.static('./public'));
 
 // --------------------------
+
+// Setup /users route handler
+app.use('/users', userRouter);
 
 // Start Server
 function startServer(databaseUrl, port=PORT) {
