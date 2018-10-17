@@ -50,3 +50,7 @@ function startServer(databaseUrl, port=PORT) {
     console.error(err);
   })
 }
+
+if (require.main === module) {
+  startServer(DATABASE_URL);
+}
