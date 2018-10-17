@@ -32,4 +32,14 @@ userSchema.methods.validatePassword = function(password) {
   return bcrypt.compare(password, this.password);
 }
 
+// Create a Joi schema for user data validation
+const userJoiSchema = joi.object().keys({
+  name: joi.string().min(1).trim().required(),
+  email: joi.string().email().trim().required(),
+  username: joi.string().alphanum().min(4).max(30).trim().required(),
+  password: joi.string().min(8).max(72).trim().required()
+});
+
 const User = mongoose.model('User', userSchema);
+
+model.exports(User, userJoiSchema);
