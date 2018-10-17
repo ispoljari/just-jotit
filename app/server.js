@@ -23,7 +23,7 @@ let server;
 // -------------------------
 
 // HTTP request logger
-app.use(morgan('common'));
+app.use(morgan('combined'));
 
 // Body parser
 app.use(express.json());
@@ -34,7 +34,7 @@ app.use(express.static('./public'));
 // --------------------------
 
 // Setup /users route handler
-app.use('/users', userRouter);
+app.use('/api/users/', userRouter);
 
 // Start Server
 function startServer(databaseUrl, port=PORT) {

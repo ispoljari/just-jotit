@@ -60,12 +60,24 @@ router.get('/', (req, res) => {
   User.find()
     .then(users => {
       return res.status(HTTP_STATUS_CODES.OK).json(
-        users.map(user => user.serialize)
+        users.map(user => user.serialize())
       );
     })
     .catch(err => {
       return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(err);
     });
+});
+
+// Retrieve a single user
+
+router.get('/:userid', (req, res) => {
+  User.findById(req.params.userid)
+  .then(user => {
+    return res.status(HTTP_STATUS_CODES.OK).json(user.serialize());
+  })
+  .catch(err => {
+    return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(err);
+  });
 });
 
 module.exports = {router};
