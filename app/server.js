@@ -1,11 +1,12 @@
 'use strict';
 
-// Import libraries, frameworks
+// Import libraries, frameworks, variables
 
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const {DATABASE_URL, PORT} = require('./config');
 
 // Create an express app instance
 const app = express();
