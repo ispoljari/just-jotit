@@ -4,7 +4,10 @@
 
 const express = require('express');
 const morgan = require('morgan');
+
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 const passport = require('passport');
 const {DATABASE_URL, HTTP_STATUS_CODES, PORT} = require('./config');
 
