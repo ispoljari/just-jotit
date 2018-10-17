@@ -6,7 +6,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const {DATABASE_URL, PORT} = require('./config');
+const {DATABASE_URL, HTTP_STATUS_CODES, PORT} = require('./config');
 
 // Create an express app instance
 const app = express();
@@ -74,3 +74,5 @@ function stopServer() {
 if (require.main === module) {
   startServer(DATABASE_URL);
 }
+
+module.exports = {app, startServer, stopServer};
