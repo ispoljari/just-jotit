@@ -26,3 +26,27 @@ app.use(express.json());
 app.use(express.static('./public'));
 
 // --------------------------
+
+// Start Server
+function startServer(databaseUrl, port=PORT) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, {useNewUrlParser: true}, err => {
+      if (err) {
+        return reject(err);
+      }
+      console.info(`The database successfuly connected to ${databaseUrl}`);
+
+      server = app.listen(port, () => {
+        console.info(`The server started listening at port ${port}`);
+        resolve();
+      })
+      .on('error', err => {
+        mongoose.disconnect();
+        reject(err);
+      })
+    })
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+}
