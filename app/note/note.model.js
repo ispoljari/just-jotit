@@ -10,6 +10,8 @@ mongoose.Promise = global.Promise;
 // Define the schema constructor
 const Schema = mongoose.Schema;
 
+const {User} = require('../user');
+
 // Define the note schema
 const noteSchema = Schema({
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},

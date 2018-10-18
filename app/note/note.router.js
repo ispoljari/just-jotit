@@ -16,6 +16,7 @@ const {Note, noteJoiSchema} = require('./note.model');
 // Import the jwt authentication middleware
 const {jwtPassportMiddleware} = require('../auth');
 
+const {User} = require('../user');
 
 // Create a new note
 router.post('/', jwtPassportMiddleware, (req, res) => {
@@ -43,10 +44,10 @@ router.post('/', jwtPassportMiddleware, (req, res) => {
 
 // Retrieve a note by id
 router.get('/:noteid', jwtPassportMiddleware, (req, res) => {
-  Note.findById(req.params.id)
-    .populate('User')
+  Note.findById(req.params.noteid)
+    .populate('user')
     .then(note => {
-      return res.status(HTTP_STATUS_CODES.OK).json(note.serialize);
+      return res.status(HTTP_STATUS_CODES.OK).json(note.serialize());
     })
     .catch(err => {
       return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(err);

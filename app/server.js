@@ -4,6 +4,7 @@
 
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -38,7 +39,7 @@ app.use(morgan('combined'));
 app.use(express.json());
 
 // Send static files to client
-app.use(express.static('./public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // --------------------------
 
