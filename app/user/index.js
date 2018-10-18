@@ -1,3 +1,5 @@
+'use strict';
+
 const {router} = require('./user.router');
 const {User, userJoiSchema} = require('./user.model');
 

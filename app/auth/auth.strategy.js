@@ -1,3 +1,5 @@
+'use strict';
+
 const passport = require('passport');
 const {Strategy: LocalStrategy} = require('passport-local');
 const {Strategy: JwtStrategy, ExtractJwt} = require('passport-jwt');
@@ -5,7 +7,7 @@ const {Strategy: JwtStrategy, ExtractJwt} = require('passport-jwt');
 const {User} = require('../user/user.model');
 const {JWT_SECRET} = require('../config');
 
-const LocalStrategy = new LocalStrategy((username, password, passportVerify) => {
+const localStrategy = new LocalStrategy((username, password, passportVerify) => {
   let user;
 
   User.findOne({username})
@@ -39,3 +41,23 @@ const LocalStrategy = new LocalStrategy((username, password, passportVerify) => 
       return passportVerify(err, false);
     }); 
 });
+
+const jwtStrategy = new JwtStrategy({
+  secretOrKey: JWT_SECRET,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
+  algorithms: ['HS256']
+},(token, done) => {
+  done(null, token.user);
+}
+);
+
+const localPassportMiddleware = passport.authenticate('local', {session: false});
+
+const jwtPassportMiddleware = passport.authenticate('jwt', {session: false});
+
+module.exports = {
+  localStrategy,
+  jwtStrategy,
+  localPassportMiddleware,
+  jwtPassportMiddleware
+}
