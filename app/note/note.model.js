@@ -47,4 +47,4 @@ const noteJoiSchema = joi.object().keys({
 
 const Note = mongoose.model('Note', noteSchema);
 
-module.exports = {Note};
+module.exports = {Note, noteJoiSchema};
