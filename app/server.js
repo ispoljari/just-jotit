@@ -12,6 +12,8 @@ const passport = require('passport');
 const {DATABASE_URL, HTTP_STATUS_CODES, PORT} = require('./config');
 
 const {router: userRouter, User, userJoiSchema} = require('./user');
+const {router: authRouter} = require('./auth');
+
 const {localStrategy,jwtStrategy} = require('./auth');
 
 // Create an express app instance
@@ -38,8 +40,11 @@ app.use(express.static('./public'));
 
 // --------------------------
 
-// Setup /users route handler
+//  /users route handler
 app.use('/api/users/', userRouter);
+
+// /login route handler
+app.use('/api/login/', authRouter);
 
 // Start Server
 function startServer(databaseUrl, port=PORT) {
