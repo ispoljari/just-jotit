@@ -12,9 +12,14 @@ const passport = require('passport');
 const {DATABASE_URL, HTTP_STATUS_CODES, PORT} = require('./config');
 
 const {router: userRouter, User, userJoiSchema} = require('./user');
+const {localStrategy,jwtStrategy} = require('./auth');
 
 // Create an express app instance
 const app = express();
+
+// Mount the passport authentication strategies as middleware
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 // Declare a variable which will hold the server instance
 let server;
