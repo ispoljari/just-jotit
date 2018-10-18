@@ -7,10 +7,27 @@ const passport = require('passport');
 const config = require('../config');
 const router = express.Router();
 
-const {localPassportMiddleware} = require('./auth.strategy');
+const {
+  localPassportMiddleware,
+  jwtPassportMiddleware
+} = require('./auth.strategy');
 
-router.post('/', localPassportMiddleware, (req, res) => {
-  return res.send('Hello  there!');
+const createAuthToken = function(user) {
+  return jwt.sign({user}, config.JWT_SECRET, {
+    subject: user.username,
+    expiresIn: config.JWT_EXPIRY,
+    algorithm: 'HS256'
+  });
+}
+
+router.post('/login', localPassportMiddleware, (req, res) => {
+  const authToken = createAuthToken(req.user.serialize());
+  return res.json({authToken});
 });
+
+router.post('/refresh', jwtPassportMiddleware, (req, res) => {
+  const authToken = createAuthToken(req.user);
+  return res.json({authToken});
+})
 
 module.exports = {router};

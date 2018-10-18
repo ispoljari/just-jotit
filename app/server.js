@@ -44,7 +44,7 @@ app.use(express.static('./public'));
 app.use('/api/users/', userRouter);
 
 // /login route handler
-app.use('/api/login/', authRouter);
+app.use('/api/auth/', authRouter);
 
 // Start Server
 function startServer(databaseUrl, port=PORT) {
