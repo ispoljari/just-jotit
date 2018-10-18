@@ -38,6 +38,13 @@ noteSchema.methods.serialize = function() {
   }
 }
 
+const noteJoiSchema = joi.object().keys({
+  user: joi.string().optional(),
+  title: joi.string().min(1).required(),
+  content: joi.string().min(1).required(),
+  createDate: joi.date().timestamp()
+});
+
 const Note = mongoose.model('Note', noteSchema);
 
 module.exports = {Note};
