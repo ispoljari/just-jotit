@@ -14,6 +14,8 @@ const {DATABASE_URL, HTTP_STATUS_CODES, PORT} = require('./config');
 const {router: userRouter, User, userJoiSchema} = require('./user');
 const {router: authRouter} = require('./auth');
 
+const {router: noteRouter} = require('./note');
+
 const {localStrategy,jwtStrategy} = require('./auth');
 
 // Create an express app instance
@@ -45,6 +47,9 @@ app.use('/api/users/', userRouter);
 
 // /login route handler
 app.use('/api/auth/', authRouter);
+
+// /notes route handler
+app.use('/api/notes/', noteRouter);
 
 // Start Server
 function startServer(databaseUrl, port=PORT) {

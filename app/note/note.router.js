@@ -41,4 +41,16 @@ router.post('/', jwtPassportMiddleware, (req, res) => {
     });
 });
 
+// Retrieve a note by id
+router.get('/:noteid', jwtPassportMiddleware, (req, res) => {
+  Note.findById(req.params.id)
+    .populate('User')
+    .then(note => {
+      return res.status(HTTP_STATUS_CODES.OK).json(note.serialize);
+    })
+    .catch(err => {
+      return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(err);
+    });
+});
+
 module.exports = {router};
