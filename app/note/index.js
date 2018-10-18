@@ -1,4 +1,4 @@
-const router = require('./note.router');
+const {router} = require('./note.router');
 
 const {Note, noteJoiSchema} = require('./note.model');
 

@@ -14,7 +14,7 @@ const {HTTP_STATUS_CODES} = require('../config');
 const {Note, noteJoiSchema} = require('./note.model');
 
 // Import the jwt authentication middleware
-const {jwtPassportMiddleware} = require('./auth');
+const {jwtPassportMiddleware} = require('../auth');
 
 
 // Create a new note

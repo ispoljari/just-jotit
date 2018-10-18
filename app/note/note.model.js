@@ -22,7 +22,7 @@ const noteSchema = Schema({
 noteSchema.methods.serialize = function() {
   let user;
 
-  if (typeof this.user.serialize === function) {
+  if (typeof this.user.serialize === 'function') {
     user = this.user.serialize();
   } else {
     user = this.user;
