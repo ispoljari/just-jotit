@@ -12,12 +12,31 @@ const Schema = mongoose.Schema;
 
 // Define the note schema
 const noteSchema = Schema({
-  user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   title: {type: String, required: true},
   content: {type: String, required: true},
   createDate: {type: Date},
   updateDate: {type: Date, default: Date.now}
 });
+
+noteSchema.methods.serialize = function() {
+  let user;
+
+  if (typeof this.user.serialize === function) {
+    user = this.user.serialize();
+  } else {
+    user = this.user;
+  }
+
+  return {
+    id: this._id,
+    user : user,
+    title: this.title,
+    content: this.content,
+    createDate: this.createDate,
+    updateDate: this.updateDate
+  }
+}
 
 const Note = mongoose.model('Note', noteSchema);
 
